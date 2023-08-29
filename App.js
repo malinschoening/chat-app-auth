@@ -1,12 +1,20 @@
+import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import Chat from './components/Chat';
+import { NavigationContainer } from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import ProfileNavigation from './components/settings/ProfileNavigation';
+import Login from './components/login/Login';
+import LoginStackNavigator from './components/login/LoginStackNavigator';
+import ChatDrawerNavigation from './components/ChatDrawerNavigation';
+
+const Drawer = createDrawerNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <LoginStackNavigator />
+    //<ChatDrawerNavigation />
   );
 }
 
