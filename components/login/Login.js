@@ -1,13 +1,48 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import { Button, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { AuthContext } from '../contexts/AuthContext';
 
 const Login = ({navigation}) => {
+
+  const {handleLogin} = useContext(AuthContext);
+  const {setUserDetails} = useContext(AuthContext);
+  const {ErrorMessage} = useContext(AuthContext);
+
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+
+  const login = () => {
+    setUserDetails({
+      "username": username,
+      "password": password
+    });
+
+    handleLogin();
+  }
+
   return (
     <View style={styles.container}>
         <Text style={styles.welcomeText}>Welcome</Text>
-        <TextInput style={styles.input} placeholder="Username.."></TextInput>
-        <TextInput style={styles.input} placeholder="Password.." secureTextEntry={true}></TextInput>
-        <Pressable style={styles.button}><Text style={styles.buttonText}>Log in</Text></Pressable>
+        <TextInput 
+       value={username}
+       onChangeText={(text) => {
+         setUsername(text)
+       }}
+       style={styles.input} 
+       placeholder='Username..' 
+       autoCapitalize='none'
+       />
+        <TextInput value={password}
+       onChangeText={(text) => {
+         setPassword(text)
+       }}
+       style={styles.input} 
+       placeholder='Password..' 
+       autoCapitalize='none'
+       secureTextEntry={true}
+       />
+        <Text style={styles.errorMessage}>{ErrorMessage}</Text>
+        <Pressable style={styles.button} onPress={login}><Text style={styles.buttonText}>Log in</Text></Pressable>
         <Button
           title="You don't have an account? Register here"
           onPress={() => navigation.push('Register')}
@@ -49,7 +84,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: 'white'
     },
-    link: {},
+    errorMessage: {
+      color: 'red',
+    }
 });
 
 export default Login

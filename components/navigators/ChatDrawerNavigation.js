@@ -3,8 +3,8 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import Chat from './Chat';
-import ProfileNavigation from './settings/ProfileNavigation';
+import Chat from '../app/Chat';
+import ProfileNavigation from './ProfileNavigation';
 
 const Drawer = createDrawerNavigator();
 
