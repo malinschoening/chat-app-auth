@@ -1,10 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Button, Text, View } from 'react-native'
-import { MaterialIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons'; 
-import Profile from './Profile';
-import Camera from './Camera';
-
+import Profile from '../settings/Profile';
+import Camera from '../settings/Camera';
 
 const Tab = createBottomTabNavigator();
 

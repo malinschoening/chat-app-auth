@@ -1,14 +1,52 @@
-import React from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Button, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { API_ROOT_URL } from '../constants/general';
+import { AuthContext } from '../contexts/AuthContext';
 
 const Register = ({navigation}) => {
+
+  const {handleRegister} = useContext(AuthContext);
+  const {setUserDetails} = useContext(AuthContext);
+  const {ErrorMessage} = useContext(AuthContext);
+
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+
+  const register = () => {
+    setUserDetails({
+      "username": username,
+      "password": password
+    });
+
+    handleRegister();
+  }
+
   return (
     <View style={styles.container}>
         <Text style={styles.welcomeText}>Register new account</Text>
-        <TextInput style={styles.input} placeholder="Choose your username.."></TextInput>
-        <TextInput style={styles.input} placeholder="Choose your password.." secureTextEntry={true}></TextInput>
-        <TextInput style={styles.input} placeholder="Repeat your password.." secureTextEntry={true}></TextInput>
-        <Pressable style={styles.button}><Text style={styles.buttonText}>Register me</Text></Pressable>
+        <TextInput 
+        value={username}
+        onChangeText={(text) => {
+          setUsername(text)
+        }}
+        style={styles.input} 
+        placeholder='Choose a username..' 
+        autoCapitalize='none'
+        />
+        <Text style={styles.errorMessage}>{ErrorMessage}</Text>
+        <TextInput 
+        style={styles.input} 
+        value={password}
+        onChangeText={(text) => {
+          setPassword(text)
+        }}
+        autoCapitalize='none'
+        placeholder="Choose your password.."
+        secureTextEntry={true}
+        ></TextInput>
+        <Pressable 
+        style={styles.button}
+        onPress={register}><Text style={styles.buttonText}>Register me</Text></Pressable>
     </View>
   )
 }
@@ -24,6 +62,7 @@ const styles = StyleSheet.create({
         marginBottom: 30,
     },
     input: {
+      color: 'black',
       height: 40,
       width: 300,
       marginHorizontal: 10,
@@ -46,6 +85,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: 'grey'
     },
+    errorMessage: {
+      color: 'red',
+    }
 });
 
 export default Register
